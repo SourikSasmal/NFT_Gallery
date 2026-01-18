@@ -128,10 +128,14 @@ function renderGallery() {
         const card = document.createElement("div");
         card.className = "nft-card";
         card.innerHTML = `
-      <img src="${img}">
-      <h4>${nft.title || "Unnamed NFT"}</h4>
-      <p>${nft.contractMetadata?.name || "Unknown Collection"}</p>
-    `;
+            <div class="nft-image-container">
+                <img src="${img}" alt="${nft.title}">
+            </div>
+            <div class="nft-details">
+                <h3>${nft.title || "Unnamed NFT"}</h3>
+                <p>${nft.contractMetadata?.name || "Unknown Collection"}</p>
+            </div>
+        `;
 
         card.onclick = () => openModal(i);
         gallery.appendChild(card);
@@ -145,6 +149,8 @@ async function openModal(i) {
     const nftAddr = nft.contract.address;
 
     modal.classList.remove("hidden");
+    // Small delay to allow display:flex to apply before opacity transition
+    setTimeout(() => modal.classList.add("visible"), 10);
     modalTitle.textContent = nft.title || "Unnamed NFT";
     modalCollection.textContent = nft.contractMetadata?.name || "Unknown";
     modalTokenId.textContent = tokenId;

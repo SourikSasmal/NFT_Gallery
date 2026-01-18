@@ -4,17 +4,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web3 NFT Gallery & Notes</title>
+    <title>Web3 NFT Gallery - Welcome</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Ethers.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #09090b;
+            --bg-card: rgba(24, 24, 27, 0.6);
+            --bg-glass: rgba(255, 255, 255, 0.05);
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.5);
+            --secondary: #ec4899;
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            /* Dynamic background pattern */
+            background-image:
+                radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.15), transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15), transparent 40%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3f3f46;
+            border-radius: 4px;
+        }
+
+        header {
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.8rem;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            animation: slideUp 1s ease-out;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #ffffff 20%, #818cf8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--primary), #4f46e5);
+            color: white;
+            text-decoration: none;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 10px 30px -5px var(--primary-glow);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px -5px var(--primary-glow);
+        }
+
+        .cta-btn i {
+            transition: transform 0.3s;
+        }
+
+        .cta-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        .features {
+            display: flex;
+            gap: 30px;
+            margin-top: 100px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .feature-item {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 20px;
+            width: 280px;
+            text-align: left;
+            transition: transform 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            width: 60px;
+            height: 60px;
+            background: rgba(99, 102, 241, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+        }
+
+        .feature-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .feature-item p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -22,74 +239,37 @@
         <div class="logo">
             <i class="fa-solid fa-shapes"></i> NFT Gallery
         </div>
-        <button id="connectWalletBtn" class="btn primary">
-            <i class="fa-solid fa-wallet"></i> Connect Wallet
-        </button>
     </header>
 
     <main>
-        <section class="search-section">
-            <h1>Your NFT Collection</h1>
-            <p>View your Polygon NFTs and leave notes on-chain.</p>
+        <div class="hero-content">
+            <h1>The Future of <br> Digital Collecting</h1>
+            <p class="subtitle">Experience your Polygon NFT collection like never before. View, manage, and attach
+                permanent on-chain notes to your assets.</p>
 
-            <div class="search-bar">
-                <input type="text" id="walletAddressInput" placeholder="Enter wallet address (0x...)">
-                <button id="fetchNftsBtn" class="btn secondary">
-                    <i class="fa-solid fa-search"></i> Fetch NFTs
-                </button>
+            <a href="gallery.html" class="cta-btn">
+                Enter Gallery <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <h3>Visual Portfolio</h3>
+                <p>Seamlessly visualize your digital assets with a stunning, immersive interface.</p>
             </div>
-            <p class="error-msg" id="errorMsg"></p>
-        </section>
-
-        <section id="gallerySection" class="gallery-grid">
-            <!-- NFT Cards will be injected here -->
-            <div class="empty-state">
-                <i class="fa-solid fa-image"></i>
-                <p>Connect wallet to view NFTs</p>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fa-solid fa-note-sticky"></i></div>
+                <h3>On-Chain Notes</h3>
+                <p>Leave permanent notes on your NFTs, stored directly on the blockchain.</p>
             </div>
-        </section>
-    </main>
-
-    <!-- Modal -->
-    <div id="nftModal" class="modal hidden">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="modal-body">
-                <div class="modal-image">
-                    <img id="modalImg" src="" alt="NFT Image">
-                </div>
-                <div class="modal-details">
-                    <h2 id="modalTitle">NFT Name</h2>
-                    <p id="modalCollection" class="collection-name">Collection</p>
-
-                    <div class="token-info">
-                        <small>Token ID: <span id="modalTokenId"></span></small>
-                        <small>Contract: <span id="modalContract"></span></small>
-                    </div>
-
-                    <div class="note-section">
-                        <label for="nftNote">Your On-Chain Note</label>
-                        <textarea id="nftNote" placeholder="Write a note related to this NFT..."></textarea>
-
-                        <div class="note-actions">
-                            <button id="saveNoteBtn" class="btn primary full-width">
-                                Save Note On-Chain
-                            </button>
-                        </div>
-                        <p id="txStatus" class="tx-status"></p>
-                    </div>
-                </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>Secure & Fast</h3>
+                <p>Powered by Polygon for lightning-fast transactions and minimal fees.</p>
             </div>
         </div>
-    </div>
-
-    <!-- Loading Overlay -->
-    <div id="loadingOverlay" class="loading-overlay hidden">
-        <div class="spinner"></div>
-        <p>Loading NFTs...</p>
-    </div>
-
-    <script src="script.js"></script>
+    </main>
 </body>
 
 </html>
