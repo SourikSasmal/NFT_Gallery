@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web3 NFT Gallery & Notes</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Ethers.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-shapes"></i> NFT Gallery
+        </div>
+        <button id="connectWalletBtn" class="btn primary">
+            <i class="fa-solid fa-wallet"></i> Connect Wallet
+        </button>
+    </header>
+
+    <main>
+        <section class="search-section">
+            <h1>Your NFT Collection</h1>
+            <p>View your Polygon NFTs and leave notes on-chain.</p>
+
+            <div class="search-bar">
+                <input type="text" id="walletAddressInput" placeholder="Enter wallet address (0x...)">
+                <button id="fetchNftsBtn" class="btn secondary">
+                    <i class="fa-solid fa-search"></i> Fetch NFTs
+                </button>
+            </div>
+            <p class="error-msg" id="errorMsg"></p>
+        </section>
+
+        <section id="gallerySection" class="gallery-grid">
+            <!-- NFT Cards will be injected here -->
+            <div class="empty-state">
+                <i class="fa-solid fa-image"></i>
+                <p>Connect wallet to view NFTs</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal -->
+    <div id="nftModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalImg" src="" alt="NFT Image">
+                </div>
+                <div class="modal-details">
+                    <h2 id="modalTitle">NFT Name</h2>
+                    <p id="modalCollection" class="collection-name">Collection</p>
+
+                    <div class="token-info">
+                        <small>Token ID: <span id="modalTokenId"></span></small>
+                        <small>Contract: <span id="modalContract"></span></small>
+                    </div>
+
+                    <div class="note-section">
+                        <label for="nftNote">Your On-Chain Note</label>
+                        <textarea id="nftNote" placeholder="Write a note related to this NFT..."></textarea>
+
+                        <div class="note-actions">
+                            <button id="saveNoteBtn" class="btn primary full-width">
+                                Save Note On-Chain
+                            </button>
+                        </div>
+                        <p id="txStatus" class="tx-status"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Loading NFTs...</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
